@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
 from PIL import Image,ImageTk
+import webbrowser
 window=Tk()
 window.title("Student Details Submission")
 window.geometry("1000x1000")
@@ -95,15 +96,31 @@ address_widget.place(x=70,y=3)
 address_lbl=Label(frame6,text="Address:",font="Arial,13,bold",bg="green",fg="black",anchor="w")
 address_lbl.place(x=0,y=0)
 
-image=Image.open("academy-logo.png")
-image=image.resize((120,120))
-photo=ImageTk.PhotoImage(image)
-photo_lbl=Label(window,image=photo,bg="white")
-photo_lbl.place(x=530,y=240)
+gender_lbl=Label(window,text="Gender",font="algerian 23 bold",fg="red",bg="blue")
+gender_lbl.place(x=210,y=440)
+radio=StringVar()
+radio_male=Radiobutton(window,value="Male",variable=radio)
+radio_female=Radiobutton(window,value="Female",variable=radio)
+radio_other=Radiobutton(window,value="Other",variable=radio)
+radio_male_lbl=Label(window,text="Male",font="algerian 15 bold",fg="black")
+radio_female_lbl=Label(window,text="Female",font="algerian 15 bold",fg="black")
+radio_other_lbl=Label(window,text="Other",font="algerian 15 bold",fg="black")
+radio_male_lbl.place(x=260,y=500)
+radio_female_lbl.place(x=260,y=550)
+radio_other_lbl.place(x=260,y=600)
+radio_male.place(x=210,y=500)
+radio_female.place(x=210,y=550)
+radio_other.place(x=210,y=600)
+# image=Image.open("academy-logo.png")
+# image=image.resize((120,120))
+# photo=ImageTk.PhotoImage(image)
+# photo_lbl=Label(window,image=photo,bg="white")
+# photo_lbl.place(x=530,y=240)
 def validate():
     name=name_widget.get().strip()
     age=age_var.get()
     num=mob_num.get().strip()
+    gender=radio.get()
     address=address_widget.get("1.0",END).strip().replace("\n"," ")
     if name=="" and age=="" and num=="" and address=="" and course=="":
         messagebox.showwarning("Warning","Please fill all fields!")
@@ -121,9 +138,10 @@ def validate():
         messagebox.showwarning("Warning","Please enter a valid age!")
     else:
         with open("students.txt","a") as file:
-            file.write(f"{name}\t{age}\t{course}\t{num}\t{address}\n")
+            file.write(f"{name}\t{age}\t{gender}\t{course}\t{num}\t{address}\n")
         messagebox.showinfo("Success","Student Registered Successfully.")
-        window.destroy()   
+        webbrowser.open("https://youtu.be/QDia3e12czc?si=HthiyoWEI7Wo6Dmx")
+        window.destroy()
 
 button2=Button(window,text="Submit",command=validate)
 button2.place(x=600,y=600)
